@@ -13,7 +13,7 @@ ion-back-button {
 }
 
 .play-controls {
-    margin-top: 90px;
+    margin-top: 60px;
 }
 
 .indicator-button {
@@ -22,7 +22,11 @@ ion-back-button {
 }
 
 .volume-controls {
-    margin-top: 80px;
+    margin-top: 50px;
+}
+
+.sleep-controls {
+    margin-top: 50px;
 }
 
 .truncate-text {
@@ -40,6 +44,11 @@ ion-button {
     --padding-top: 35px;
     --padding-bottom: 35px;
     font-size: 30px !important;
+}
+
+ion-button.sleep-button
+{
+    font-size: 15px !important;
 }
 
 .volume-button {

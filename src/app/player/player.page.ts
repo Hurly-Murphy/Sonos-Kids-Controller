@@ -1,19 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 
-import { ArtworkService } from '../artwork.service';
-import { PlayerService, PlayerCmds } from '../player.service';
-import { Media } from '../media';
+import { ArtworkService } from "../artwork.service";
+import { PlayerService, PlayerCmds } from "../player.service";
+import { Media } from "../media";
 
 @Component({
-  selector: 'app-player',
-  templateUrl: './player.page.html',
-  styleUrls: ['./player.page.scss'],
+  selector: "app-player",
+  templateUrl: "./player.page.html",
+  styleUrls: ["./player.page.scss"],
 })
 export class PlayerPage implements OnInit {
-
   media: Media;
-  cover = '';
+  cover = "";
   playing = true;
 
   constructor(
@@ -22,7 +21,7 @@ export class PlayerPage implements OnInit {
     private artworkService: ArtworkService,
     private playerService: PlayerService
   ) {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.media = this.router.getCurrentNavigation().extras.state.media;
       }
@@ -30,7 +29,7 @@ export class PlayerPage implements OnInit {
   }
 
   ngOnInit() {
-    this.artworkService.getArtwork(this.media).subscribe(url => {
+    this.artworkService.getArtwork(this.media).subscribe((url) => {
       this.cover = url;
     });
   }
@@ -63,6 +62,10 @@ export class PlayerPage implements OnInit {
 
   skipNext() {
     this.playerService.sendCmd(PlayerCmds.NEXT);
+  }
+
+  seelp15() {
+    this.playerService.sendCmd(PlayerCmds.SLEEP);
   }
 
   playPause() {
