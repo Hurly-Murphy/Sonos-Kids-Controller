@@ -1,19 +1,19 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides } from '@ionic/angular';
-import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
-import { MediaService } from '../media.service';
-import { ArtworkService } from '../artwork.service';
-import { PlayerService } from '../player.service';
-import { Media } from '../media';
-import { Artist } from '../artist';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { IonSlides } from "@ionic/angular";
+import { ActivatedRoute, Router, NavigationExtras } from "@angular/router";
+import { MediaService } from "../media.service";
+import { ArtworkService } from "../artwork.service";
+import { PlayerService } from "../player.service";
+import { Media } from "../media";
+import { Artist } from "../artist";
 
 @Component({
-  selector: 'app-medialist',
-  templateUrl: './medialist.page.html',
-  styleUrls: ['./medialist.page.scss'],
+  selector: "app-medialist",
+  templateUrl: "./medialist.page.html",
+  styleUrls: ["./medialist.page.scss"],
 })
 export class MedialistPage implements OnInit {
-  @ViewChild('slider', { static: false }) slider: IonSlides;
+  @ViewChild("slider", { static: false }) slider: IonSlides;
 
   artist: Artist;
   media: Media[] = [];
@@ -28,7 +28,7 @@ export class MedialistPage implements OnInit {
     freeModeSticky: true,
     freeModeMomentumBounce: false,
     freeModeMomentumRatio: 1.0,
-    freeModeMomentumVelocityRatio: 1.0
+    freeModeMomentumVelocityRatio: 1.0,
   };
 
   constructor(
@@ -38,7 +38,7 @@ export class MedialistPage implements OnInit {
     private artworkService: ArtworkService,
     private playerService: PlayerService
   ) {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.artist = this.router.getCurrentNavigation().extras.state.artist;
       }
@@ -47,11 +47,11 @@ export class MedialistPage implements OnInit {
 
   ngOnInit() {
     // Subscribe
-    this.mediaService.getMediaFromArtist(this.artist).subscribe(media => {
+    this.mediaService.getMediaFromArtist(this.artist).subscribe((media) => {
       this.media = media;
 
-      this.media.forEach(currentMedia => {
-        this.artworkService.getArtwork(currentMedia).subscribe(url => {
+      this.media.forEach((currentMedia) => {
+        this.artworkService.getArtwork(currentMedia).subscribe((url) => {
           this.covers[currentMedia.title] = url;
         });
       });
@@ -59,7 +59,7 @@ export class MedialistPage implements OnInit {
 
       // Workaround as the scrollbar handle isn't visible after the immediate update
       // Seems like a size calculation issue, as resizing the browser window helps
-      // Better fix for this? 
+      // Better fix for this?
       window.setTimeout(() => {
         this.slider.update();
       }, 1000);
@@ -72,18 +72,17 @@ export class MedialistPage implements OnInit {
   coverClicked(clickedMedia: Media) {
     const navigationExtras: NavigationExtras = {
       state: {
-        media: clickedMedia
-      }
+        media: clickedMedia,
+      },
     };
-    this.router.navigate(['/player'], navigationExtras);
+    this.router.navigate(["/player"], navigationExtras);
   }
 
   mediaNameClicked(clickedMedia: Media) {
-    this.playerService.getConfig().subscribe(config => {
-      if (config.tts == null || config.tts.enabled === true) {
-        this.playerService.say(clickedMedia.title);
-      }
-    });
+    let config = this.playerService.Config;
+    if (config.tts == null || config.tts.enabled === true) {
+      this.playerService.say(clickedMedia.title);
+    }
   }
 
   slideDidChange() {
