@@ -70,37 +70,29 @@
   </ng-template>
 
   <ng-template #mediaBlock>
-    <ion-grid>
-      <ion-row class="title-card">
-        <ion-col size="12">
-          <ion-card (click)="sleepClicked(15)">
-            <ion-card-header>
-              <ion-card-title class="ion-text-nowrap truncate-text"
-                >15 Min</ion-card-title
-              >
-            </ion-card-header>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <ion-slides [options]="slideOptions" scrollbar="true" #media_slider>
+      <ion-slide *ngFor="let currentMedia of media">
+        <ion-grid>
+          <ion-row class="media-card">
+            <ion-col size="12">
+              <ion-card class="media-card">
+                <img
+                  (click)="mediaCoverClicked(currentMedia)"
+                  draggable="false"
+                  style="-moz-user-select: none"
+                  ondragstart="return false;"
+                  src="{{covers[currentMedia.title]}}"
+                />
+                <ion-card-header (click)="mediaNameClicked(currentMedia)">
+                  <ion-card-title class="ion-text-nowrap truncate-text"
+                    >{{currentMedia.title}}</ion-card-title
+                  >
+                </ion-card-header>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-slide>
+    </ion-slides>
   </ng-template>
-
-  <!-- <ng-template #mediaBlock>
-        <ion-slides [options]="slideOptions" scrollbar="true" #media_slider>
-            <ion-slide *ngFor="let currentMedia of media">
-                <ion-grid>
-                    <ion-row class="media-card">
-                        <ion-col size="12">
-                            <ion-card class="media-card">
-                                <img (click)="mediaCoverClicked(currentMedia)" draggable="false" style="-moz-user-select: none;" ondragstart="return false;" src="{{covers[currentMedia.title]}}">
-                                <ion-card-header (click)="mediaNameClicked(currentMedia)">
-                                    <ion-card-title class="ion-text-nowrap truncate-text">{{currentMedia.title}}</ion-card-title>
-                                </ion-card-header>
-                            </ion-card>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-slide>
-        </ion-slides>
-    </ng-template> -->
 </ion-content>
