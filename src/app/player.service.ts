@@ -5,6 +5,7 @@ import { SonosApiConfig } from "./sonos-api";
 import { environment } from "../environments/environment";
 import { Observable } from "rxjs";
 import { publishReplay, refCount, take } from "rxjs/operators";
+import { ActivityIndicatorService } from "./activity-indicator.service";
 
 export enum PlayerCmds {
   PLAY = "play",
@@ -23,8 +24,10 @@ export enum PlayerCmds {
 })
 export class PlayerService {
   public Config: SonosApiConfig = null;
-
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private activityIndicatorService: ActivityIndicatorService
+  ) {
     debugger;
     const url = environment.production
       ? "../api/sonos"
@@ -128,6 +131,18 @@ export class PlayerService {
       "/" +
       this.Config.rooms[0] +
       "/";
-    this.http.get(baseUrl + url).toPromise();
+
+    this.activityIndicatorService.create().then((indicator) => {
+      indicator.present();
+
+      this.http.get(baseUrl + url).subscribe(
+        (success) => {
+          this.activityIndicatorService.dismiss();
+        },
+        (error) => {
+          this.activityIndicatorService.dismiss();
+        }
+      );
+    });
   }
 }
