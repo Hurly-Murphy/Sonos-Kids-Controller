@@ -43,14 +43,31 @@ ion-button {
     --padding-end: 35px;
     --padding-top: 35px;
     --padding-bottom: 35px;
+    
     font-size: 30px !important;
 }
 
 ion-button.sleep-button
 {
-    font-size: 15px !important;
+    --padding-top: 0x;
+    --padding-bottom: 0px;
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+    --background: transparent;
+    --box-shadow: 0 0 0 0
 }
 
 .volume-button {
     --background: #262626;
+}
+
+.popover {
+    height: 200px !important;
+}
+.popover ion-header-bar {
+    position: relative;
+}
+.popover ion-content {
+    top: 0;
+    position: relative;
 }

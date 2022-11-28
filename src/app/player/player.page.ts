@@ -64,8 +64,15 @@ export class PlayerPage implements OnInit {
     this.playerService.sendCmd(PlayerCmds.NEXT);
   }
 
-  seelp15() {
-    this.playerService.sendCmd(PlayerCmds.SLEEP);
+  seelp(minutes: number) {
+    switch (minutes) {
+      case 5:
+        return this.playerService.sendCmd(PlayerCmds.SLEEP5);
+      case 15:
+        return this.playerService.sendCmd(PlayerCmds.SLEEP15);
+      case 25:
+        return this.playerService.sendCmd(PlayerCmds.SLEEP25);
+    }
   }
 
   playPause() {

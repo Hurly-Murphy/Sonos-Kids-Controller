@@ -140,10 +140,6 @@ export class HomePage implements OnInit {
     }
   }
 
-  sleepClicked(sleepTime: number) {
-    this.playerService.sendCmd(PlayerCmds.SLEEP);
-  }
-
   mediaCoverClicked(clickedMedia: Media) {
     const navigationExtras: NavigationExtras = {
       state: {

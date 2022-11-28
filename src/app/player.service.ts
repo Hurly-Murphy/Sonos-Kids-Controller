@@ -16,7 +16,9 @@ export enum PlayerCmds {
   VOLUMEUP = "volume/+5",
   VOLUMEDOWN = "volume/-5",
   CLEARQUEUE = "clearqueue",
-  SLEEP = "sleep/15",
+  SLEEP5 = "sleep/300",
+  SLEEP15 = "sleep/900",
+  SLEEP25 = "sleep/1500",
 }
 
 @Injectable({
